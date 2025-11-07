@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Page</title>
+
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+  />
+
+  <link rel="stylesheet" href="style2.css" />
+</head>
+<body class="bg-white">
+  <main class="container custom-main-container">
+    <div class="page-title-wrapper">
+      <h2 id="cruise-title" class="page-title"></h2>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="main-content-col">
+          <div class="custom-accordion-panel">
+            <button
+              id="accordion-btn-bookingDetails"
+              class="custom-accordion-btn"
+              type="button"
+            >
+              <h3 class="custom-accordion-title text-primary-custom">
+                Booking Details
+              </h3>
+              <svg
+                id="accordion-icon-bookingDetails"
+                class="custom-accordion-icon rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            <div
+              id="accordion-content-bookingDetails"
+              class="custom-accordion-content"
+            >
+              <div id="booking-details-row" class="row">
+                <div class="col-md-6">
+                  <h4 class="font-semibold text-primary-custom" style="margin-bottom: 2.8rem;">
+                    Choose cruise date
+                  </h4>
+                  <div class="calendar-wrapper">
+                    <div id="cruise-calendar"></div>
+                  </div>
+                  <p id="error-date" class="text-danger help-block-custom"></p>
+                </div>
+
+                <div class="col-md-6">
+                  <h4 class="font-semibold text-primary-custom mb-7">
+                    Number of guests
+                  </h4>
+                  <div class="guest-selection-group">
+                    <div class="guest-control-wrapper">
+                      <span class="guest-label">Adults</span>
+                      <div class="position-relative">
+                        <button
+                          type="button"
+                          id="adult-count-btn"
+                          class="btn btn-default guest-count-btn"
+                        >
+                          01 <i class="bi bi-chevron-down text-xs"></i>
+                        </button>
+                        <div id="adult-menu" class="guest-menu hidden"></div>
+                      </div>
+                    </div>
+                    <div class="guest-control-wrapper">
+                      <span class="guest-label">Children</span>
+                      <div class="position-relative">
+                        <button
+                          type="button"
+                          id="child-count-btn"
+                          class="btn btn-default guest-count-btn"
+                        >
+                          00 <i class="bi bi-chevron-down text-xs"></i>
+                        </button>
+                        <div id="child-menu" class="guest-menu hidden"></div>
+                      </div>
+                    </div>
+                    <div class="pt-4">
+                      <h5 class="departure-title">Departure Time</h5>
+                      <div class="departure-radio-group" role="radiogroup" aria-label="Departure Time">
+                        <label class="dep-option">
+                          <input type="radio" name="departure" id="dep-1900" value="19:00" checked>
+                          <span>19:00</span>
+                        </label>
+                        <label class="dep-option">
+                          <input type="radio" name="departure" id="dep-1700" value="17:00">
+                          <span>17:00</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-6 text-right-md">
+                <div class="btn-cluster-right">
+                  <button
+                    id="proceed-upgrades-btn"
+                    class="btn btn-lg"
+                    type="button"
+                  >
+                    Proceed to Upgrades
+                  </button>
+                  <button
+                    id="skip-upgrades-btn"
+                    class="btn btn-lg"
+                    type="button"
+                  >
+                    Skip Upgrades
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="custom-accordion-panel">
+            <button
+              id="accordion-btn-upgrades"
+              class="custom-accordion-btn"
+              type="button"
+            >
+              <h3 class="custom-accordion-title">Upgrades</h3>
+              <svg
+                id="accordion-icon-upgrades"
+                class="custom-accordion-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 34 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            <div id="accordion-content-upgrades" class="custom-accordion-content hidden">
+              <div id="upgrades-container" class="row">
+                </div>
+              <div class="text-right mt-6">
+                <button
+                  id="upgrades-proceed-pay-btn"
+                  class="btn btn-success btn-lg"
+                  type="button"
+                >
+                  Proceed to Pay
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="custom-accordion-panel">
+            <button
+              id="accordion-btn-bookingSummary"
+              class="custom-accordion-btn"
+              type="button"
+            >
+              <h3 class="custom-accordion-title">Contact Information</h3>
+              <svg
+                id="accordion-icon-bookingSummary"
+                class="custom-accordion-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+
+            <div
+              id="accordion-content-bookingSummary"
+              class="custom-accordion-content hidden"
+            >
+              <form id="booking-form" novalidate>
+                <h4 class="font-semibold text-primary-custom mb-4">
+                  Contact Information
+                </h4>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="fullName">Full Name*</label>
+                      <input
+                        type="text"
+                        id="fullName"
+                        class="form-control input-lg"
+                        placeholder="Enter your full name"
+                      />
+                      <p
+                        id="error-fullName"
+                        class="text-danger help-block"
+                      ></p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="email">Email*</label>
+                      <input
+                        type="email"
+                        id="email"
+                        class="form-control input-lg"
+                        placeholder="Enter your email"
+                      />
+                      <p id="error-email" class="text-danger help-block"></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="contactNumber">Contact Number*</label>
+                      <input
+                        type="tel"
+                        id="contactNumber"
+                        class="form-control input-lg"
+                        placeholder="Enter your contact number"
+                      />
+                      <p
+                        id="error-contactNumber"
+                        class="text-danger help-block"
+                      ></p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="country">Country*</label>
+                      <input
+                        type="text"
+                        id="country"
+                        class="form-control input-lg"
+                        placeholder="Enter your country"
+                      />
+                      <p id="error-country" class="text-danger help-block"></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="state">State*</label>
+                      <input
+                        type="text"
+                        id="state"
+                        class="form-control input-lg"
+                        placeholder="Enter your state"
+                      />
+                      <p id="error-state" class="text-danger help-block"></p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="postcode">Postcode*</label>
+                      <input
+                        type="text"
+                        id="postcode"
+                        class="form-control input-lg"
+                        placeholder="Enter your postcode"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="hearAboutUs">How did you hear about us?</label>
+                      <select id="hearAboutUs" class="form-control input-lg">
+                        <option value="">Please select</option>
+                        <option>Google</option>
+                        <option>Facebook</option>
+                        <option>Instagram</option>
+                        <option>Friend/Family</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="additionalComments">Additional Comments</label>
+                      <textarea
+                        id="additionalComments"
+                        rows="2"
+                        class="form-control input-lg"
+                        placeholder="Any additional comments or special requests..."
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Pay with</label>
+                      <div class="radio-group">
+                        <label class="radio-inline">
+                          <input
+                            type="radio"
+                            name="payMethod"
+                            id="pay-card"
+                            value="card"
+                            checked
+                          />
+                          Card
+                        </label>
+                        <label class="radio-inline">
+                          <input
+                            type="radio"
+                            name="payMethod"
+                            id="pay-gpay"
+                            value="gpay"
+                          />
+                          <img src="assets/Google_Pay_Logo.png" alt="G Pay" class="pay-logo" />
+                          <span class="sr-only">G Pay</span>
+                        </label>
+                        <label class="radio-inline">
+                          <input
+                            type="radio"
+                            name="payMethod"
+                            id="pay-apple"
+                            value="apple"
+                          />
+                          <img src="assets/applepay.png" alt="Apple Pay" class="pay-logo" />
+                          <span class="sr-only">Apple Pay</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div id="card-type-wrap" class="form-group">
+                      <label for="card-type">Select Card Type</label>
+                      <select id="card-type" class="form-control input-lg">
+                        <option value="master-1.65">
+                          Master Card (+1.65%)
+                        </option>
+                        <option value="visa-1.65">Visa (+1.65%)</option>
+                        <option value="amex-1.80">
+                          American Express (+1.80%)
+                        </option>
+                      </select>
+                      <div id="card-fee-note" class="text-danger text-s mt-1"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <button
+                    id="submit-btn"
+                    type="button"
+                    class="btn btn-success btn-lg"
+                  >
+                    Pay
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="sidebar-wrapper">
+          <div class="well">
+            <h3 class="text-primary-custom summary-title">
+              Booking Summary
+            </h3>
+
+             <div class="summary-times">
+               <div class="summary-time">
+                 <div class="summary-time-label">Boards</div>
+                 <div class="summary-time-value" id="summary-boards">--</div>
+               </div>
+               <div class="summary-time">
+                 <div class="summary-time-label">Departs</div>
+                 <div class="summary-time-value" id="summary-departs">--</div>
+               </div>
+               <div class="summary-time">
+                 <div class="summary-time-label">Returns</div>
+                 <div class="summary-time-value" id="summary-returns">--</div>
+               </div>
+             </div>
+
+            <div class="summary-divider">
+              <div id="summary-date-title" class="summary-date-title">
+                Select Cruise Date
+              </div>
+              <div class="summary-location">King Street Wharf - 5</div>
+            </div>
+
+            <div id="summary-base-prices" class="summary-base-prices"></div>
+
+            <div id="summary-upgrades-wrapper" class="summary-divider hidden">
+              <div class="summary-upgrades-title">Upgrades</div>
+              <div id="summary-upgrades-list"></div>
+            </div>
+
+            <div class="summary-divider summary-total-wrapper">
+              <div class="summary-total-amount">
+                <strong id="summary-total">Total $0.00</strong>
+              </div>
+              <div class="text-sm text-primary-custom mt-1">
+                <a id="coupon-toggle" href="#">Have a coupon code?</a>
+              </div>
+              <div id="coupon-box" class="coupon-box hidden mt-4">
+                <label for="coupon-code" class="text-dark-custom" style="display:block; margin-bottom:6px;">Apply Coupon Code</label>
+                <div class="coupon-input-group">
+                  <input id="coupon-code" type="text" class="coupon-input" placeholder="Enter coupon code" />
+                  <button id="coupon-apply" type="button" class="coupon-apply-btn">Apply</button>
+                </div>
+                <div id="coupon-msg" class="text-s" style="margin-top:6px;"></div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <h4 class="inclusions-title">Cruise Inclusions</h4>
+              <ul id="summary-inclusions-list" class="list-unstyled inclusions-list"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script src="script2.js" defer></script>
+</body>
+</html>
