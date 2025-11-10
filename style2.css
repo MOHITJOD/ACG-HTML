@@ -808,6 +808,7 @@ input[type="radio"] {
   display: flex;
   width: 100%;
   border: 1px solid #ced4da;
+  min-width: 0;
 }
 .coupon-input {
   flex: 1 1 auto;
@@ -815,6 +816,8 @@ input[type="radio"] {
   padding: 10px 12px;
   font-size: 16px;
   outline: none;
+  min-width: 0;
+  width: 0;
 }
 .coupon-input:focus { outline: none; }
 .coupon-apply-btn {
@@ -824,9 +827,60 @@ input[type="radio"] {
   padding: 10px 24px;
   font-size: 18px;
   font-weight: 600;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .coupon-apply-btn:hover,
 .coupon-apply-btn:focus { background-color: #1a7532; }
+
+/* Fix coupon input box for very small screens (under 335px) */
+@media (max-width: 334px) {
+  .summary-total-wrapper {
+    padding: 10px 8px !important;
+  }
+  .summary-total-amount {
+    font-size: 16px;
+  }
+  .summary-total-wrapper .text-sm {
+    font-size: 12px;
+  }
+  .coupon-input-group {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+    margin: 0;
+  }
+  .coupon-input {
+    padding: 8px 6px;
+    font-size: 13px;
+    min-width: 0;
+    flex: 1 1 0;
+    width: 0;
+  }
+  .coupon-apply-btn {
+    padding: 8px 10px;
+    font-size: 13px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    min-width: auto;
+  }
+  .coupon-box {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: 8px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .coupon-box label {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  #coupon-msg {
+    font-size: 11px;
+  }
+}
 .inclusions-title {
   font-weight: 500;
   color: #111827;
