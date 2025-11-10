@@ -850,6 +850,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Move Booking Summary card into mobile accordion on small screens
+  const sidebarWrapper = document.querySelector(".sidebar-wrapper");
+  const mobileSummaryHost = document.getElementById("mobile-summary-host");
+  const summaryCard = sidebarWrapper && sidebarWrapper.querySelector(".well");
+
+  function placeSummaryForViewport() {
+    const isMobile = window.innerWidth <= 767;
+    if (!summaryCard || !sidebarWrapper || !mobileSummaryHost) return;
+    if (isMobile) {
+      if (summaryCard.parentElement !== mobileSummaryHost) {
+        mobileSummaryHost.appendChild(summaryCard);
+      }
+    } else {
+      if (summaryCard.parentElement !== sidebarWrapper) {
+        sidebarWrapper.appendChild(summaryCard);
+      }
+    }
+  }
+  placeSummaryForViewport();
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(placeSummaryForViewport, 120);
+  });
+
   // Guest Menu Toggles
   dom.guests.adultBtn.addEventListener("click", () => {
     showAdultMenu = !showAdultMenu;

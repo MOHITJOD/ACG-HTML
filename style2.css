@@ -673,6 +673,38 @@ input[type="radio"] {
   font-weight: 700;
 }
 
+/* --- Mobile sticky total + coupon bar (only on small screens) --- */
+@media (max-width: 767px) {
+  /* Make the total + coupon area stick to bottom */
+  .summary-total-wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 12px 16px;
+    background: #ffffff;
+    border-top: 1px solid #e7eaee;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+    z-index: 1000;
+  }
+  /* Ensure the right column isn't sticky on mobile so content scrolls naturally */
+  .sidebar-wrapper { position: static; top: auto; display: none; }
+  /* Room for the sticky bar so it doesn't cover content */
+  body {
+    padding-bottom: 96px;
+  }
+  /* Tidy up the coupon box inside the sticky area */
+  .summary-total-wrapper .coupon-box {
+    margin-top: 12px;
+  }
+}
+
+/* Utility to show elements only on mobile for this layout */
+.mobile-only { display: none; }
+@media (max-width: 767px) {
+  .mobile-only { display: block; }
+}
 /* Coupon box styles */
 /* .coupon-box { } */
 .coupon-input-group {
