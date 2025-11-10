@@ -177,9 +177,9 @@ body {
   top: 24px; /* sticky top-6 */
 }
 .well {
-  background-color: #f8f9fa; /* bg-gray-100 */
-  border: 1px solid #e7eaee;
-  padding: 24px;
+  background-color: #fff; 
+  border: 0px solid #e7eaee;
+  padding: 10px;
   box-shadow: none;
   border-radius: 0;
 }
@@ -276,6 +276,7 @@ body {
 }
 input[type="radio"] {
   accent-color: #1f8a3b;
+  flex-shrink: 0;
 }
 
 /* Payment options bordered chips */
@@ -285,6 +286,13 @@ input[type="radio"] {
   border-radius: 2px;
   padding: 14px 29px;
   line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.radio-group .radio-inline input[type="radio"] {
+  margin: 0;
+  flex-shrink: 0;
 }
 .radio-group .radio-inline + .radio-inline { margin-left: 12px; }
 .radio-group .radio-inline:hover { background-color: #f8f9fa; }
@@ -301,8 +309,87 @@ input[type="radio"] {
 .pay-logo {
   height: 20px;
   width: auto;
-  display: inline-block;
-  vertical-align: middle;
+  display: block;
+  flex-shrink: 0;
+  margin: 0;
+}
+.radio-group .radio-inline img {
+  flex-shrink: 0;
+  display: block;
+  margin: 0;
+}
+
+/* Fix payment options for very small screens (under 411px) */
+@media (max-width: 410px) {
+  .radio-group {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 3px;
+    width: 100%;
+  }
+  .radio-group .radio-inline {
+    padding: 8px 4px;
+    font-size: 12px;
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    gap: 4px;
+  }
+  .radio-group .radio-inline input[type="radio"] {
+    margin: 0;
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    position: relative;
+    z-index: 1;
+  }
+  .radio-group .radio-inline + .radio-inline {
+    margin-left: 0;
+  }
+  .radio-group .radio-inline img {
+    height: 14px;
+    width: auto;
+    max-width: 100%;
+    flex-shrink: 0;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+  .pay-logo {
+    height: 14px !important;
+    max-width: 100%;
+    flex-shrink: 0;
+  }
+  .radio-group .radio-inline .sr-only {
+    display: none;
+  }
+}
+
+/* Extra compact for extremely narrow screens (under 360px) */
+@media (max-width: 359px) {
+  .radio-group .radio-inline {
+    padding: 6px 3px;
+    font-size: 11px;
+    gap: 3px;
+  }
+  .radio-group .radio-inline input[type="radio"] {
+    width: 12px;
+    height: 12px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+  .radio-group .radio-inline img,
+  .pay-logo {
+    height: 12px !important;
+    flex-shrink: 0;
+  }
+  .radio-group {
+    gap: 2px;
+  }
 }
 
 /* --- Booking Details Section --- */
@@ -312,6 +399,16 @@ input[type="radio"] {
   padding: 16px;
   border: 1px solid #e7eaee;
   display: inline-block;
+}
+
+/* Center calendar on screens under 720px */
+@media (max-width: 719px) {
+  #booking-details-row .col-md-6:first-child {
+    text-align: center;
+  }
+  .calendar-wrapper {
+    margin: 0 auto;
+  }
 }
 .guest-selection-group > * + * {
   margin-top: 16px; /* space-y-4 */
