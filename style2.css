@@ -10,6 +10,124 @@
     "Segoe UI Symbol";
 }
 
+/* Fix upgrade controls on small phones so qty buttons stay in one row */
+@media (max-width: 480px) {
+  .upgrade-controls {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: nowrap !important; /* prevent wrapping to a column */
+    gap: 8px;                     /* tighter gap for small screens */
+    width: 100%;
+    min-width: 0;
+  }
+  /* Make the image a bit smaller to give controls room */
+  .upgrade-item .media-object {
+    width: 96px;
+    height: 72px;
+    object-fit: cover;
+  }
+  .upgrade-image-wrap { width: 96px; height: 72px; }
+
+  /* Ensure price sits to the right, not forcing a wrap */
+  .upgrade-price { margin-left: auto; }
+
+  /* Let the view more link drop below when space is tight */
+  .view-more-link { display: inline-block; max-width: 100%; }
+
+  .upgrade-controls .btn-group {
+    display: inline-flex !important;   /* force horizontal layout */
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;      /* no wrapping inside group */
+    white-space: nowrap;
+  }
+  .upgrade-controls .btn-group .btn {
+    float: none;                  /* neutralize Bootstrap float */
+    padding: 6px 8px;             /* smaller buttons */
+    min-width: 34px;              /* compact width */
+    line-height: 1.1;             /* tighter height */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .upgrade-controls .btn-group .btn:disabled {
+    min-width: 36px;              /* show 2-digit qty clearly */
+  }
+  .upgrade-price {
+    font-size: 16px;              /* slightly smaller to fit */
+  }
+  /* Ensure the image doesn't squeeze the controls */
+  .upgrade-item .media-right { flex: 0 0 auto; }
+  .upgrade-item .media-body { min-width: 0; }
+}
+
+/* Fix overlap on tablets and small laptops (411px–991px) */
+@media (min-width: 411px) and (max-width: 991px) {
+  .radio-group {
+    display: flex;
+    flex-wrap: wrap; /* allow wrapping to avoid crowding */
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+  .radio-group .radio-inline {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 10px; /* smaller chip */
+    gap: 6px;         /* space between radio and label/logo */
+    position: static; /* avoid absolute positioning overlap */
+    font-size: 14px;
+    white-space: nowrap; /* keep each chip on one line */
+    line-height: 1.2;    /* tighten to reduce vertical overflow */
+  }
+  .radio-group .radio-inline + .radio-inline { margin-left: 0; }
+  .radio-group .radio-inline input[type="radio"] {
+    position: static; /* keep inside flex flow */
+    margin: 0;        /* rely on gap */
+    vertical-align: middle;
+  }
+  .radio-group .radio-inline img,
+  .radio-group .radio-inline .pay-logo {
+    height: 16px; /* smaller logos prevent overlap */
+    width: auto;
+    display: block;
+  }
+}
+
+/* Fix overlap on large screens for Pay with radio buttons */
+@media (min-width: 992px) {
+  /* Keep the whole group on one line on desktops */
+  .radio-group {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0px; /* even tighter spacing */
+    white-space: nowrap; /* belt-and-suspenders */
+  }
+  /* Remove Bootstrap's inline radio left padding behavior and ensure proper inline-flex layout */
+  .radio-group .radio-inline {
+    padding: 8px 6px; /* narrower chips */
+    display: inline-flex;
+    align-items: center;
+    gap: 0px;
+    position: static;
+    flex: 0 0 auto; /* prevent flex shrinking that can cause wraps */
+    font-size: 14px; /* slightly smaller text */
+  }
+  /* Remove left margin between inline items since we use flex gap */
+  .radio-group .radio-inline + .radio-inline { margin-left: 0; }
+  .radio-group .radio-inline input[type="radio"] {
+    position: static; /* ensure it participates in flex flow */
+    margin: 0;        /* rely on gap for spacing */
+  }
+  .radio-group .radio-inline img,
+  .radio-group .radio-inline .pay-logo {
+    height: 16px; /* smaller logos to save width */
+    width: auto;
+    display: block;
+  }
+}
+
 :root {
   --accent: #1f8a3b; /* selected green */
   --accent-ink: #ffffff;
@@ -284,11 +402,15 @@ input[type="radio"] {
   border: 1px solid #ced4da;
   background: #fff;
   border-radius: 2px;
-  padding: 14px 29px;
+  padding: 10px 20px;
   line-height: 1.4;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 3px;
+}
+.radio-group .radio-inline input[type="radio"] {
+  margin: 0;
+  flex-shrink: 0;
 }
 .radio-group .radio-inline input[type="radio"] {
   margin: 0;
@@ -684,12 +806,12 @@ input[type="radio"] {
     display: none !important;
   }
 }
-
 .upgrade-controls {
   margin-top: 12px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: nowrap;
 }
 .upgrade-controls .btn-success {
     background-color: #1f8a3b;
