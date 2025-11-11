@@ -26,16 +26,7 @@
     height: 72px;
     object-fit: cover;
   }
-  .upgrade-image-wrap { width: 96px; height: 72px; }
-
-  /* Ensure price sits to the right, not forcing a wrap */
-  .upgrade-price { margin-left: auto; }
-
-  /* Let the view more link drop below when space is tight */
-  .view-more-link { display: inline-block; max-width: 100%; }
-
   .upgrade-controls .btn-group {
-    display: inline-flex !important;   /* force horizontal layout */
     flex-direction: row !important;
     flex-wrap: nowrap !important;      /* no wrapping inside group */
     white-space: nowrap;
@@ -311,6 +302,9 @@ body {
 }
 .text-xs {
   font-size: 0.75rem;
+}
+.text-sm {
+  font-size: 0.875rem; /* ~14px */
 }
 .mt-1 { margin-top: 4px; }
 .mt-4 { margin-top: 16px; }
@@ -736,6 +730,8 @@ input[type="radio"] {
 .upgrade-item .media-heading {
   color: #111827;
   font-weight: 500;
+  font-size: 13px; /* reduce upgrade title size */
+  line-height: 1.2;
 }
 .upgrade-image-wrap {
   position: relative;
@@ -813,26 +809,54 @@ input[type="radio"] {
   gap: 12px;
   flex-wrap: nowrap;
 }
+.upgrade-left-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+.upgrade-qty-select {
+  display: inline-block;
+  width: auto;
+  min-width: 72px;
+  height: 34px;
+  padding: 4px 8px;
+  font-size: 13px;
+  line-height: 1.2;
+  border: 1px solid #ced4da;
+  border-radius: 0;
+}
+.upgrade-qty-select:focus {
+  border-color: #2068a7;
+  box-shadow: 0 0 0 2px rgba(32,104,167,.2);
+  outline: none;
+}
 .upgrade-controls .btn-success {
     background-color: #1f8a3b;
     border-color: #1a7532;
     border-radius: 4px; /* rounded */
 }
 .upgrade-controls .btn-group .btn {
-    padding: 8px 12px;
+    padding: 6px 10px;  /* smaller quantity selector buttons */
+    font-size: 13px;
+    line-height: 1.1;
 }
 .upgrade-controls .btn-group .btn:disabled {
     opacity: 1; /* To make the count visible */
     color: #fff;
     background-color: #1f8a3b;
+    min-width: 34px !important; /* override inline min-width:40px from HTML */
 }
 .upgrade-controls .add-upgrade-btn {
-    padding: 8px 16px; /* px-4 py-2 */
+    padding: 6px 12px; /* smaller */
     font-weight: 500;
+    font-size: 13px;   /* smaller text */
+    line-height: 1.2;  /* compact height */
 }
 .upgrade-price {
   color: #2068a7;
   font-weight: 600;
+  font-size: 15px; /* slightly larger price */
 }
 
 /* --- Summary Sidebar --- */

@@ -391,33 +391,33 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="upgrade-item">
             <div class="media">
               <div class="media-body">
-                <h4 class="media-heading">${upgrade.name}</h4>
+                <h4 class="media-heading text-sm">${upgrade.name}</h4>
                 <p class="upgrade-description ${isOpen ? "" : "hidden"}">
                   ${upgrade.description || ""}
                 </p>
                 <div class="upgrade-controls">
+                  <div class="upgrade-left-stack">
                   ${
-                    qty === 0
-                      ? `
-                    <button
-                      type="button"
-                      class="add-upgrade-btn btn btn-success add-upgrade-btn"
-                    >
-                      Add
-                      <i class="bi bi-chevron-down text-xs" style="margin-left: 8px;"></i>
-                    </button>
-                  `
-                      : `
-                    <div class="btn-group" role="group">
-                      <button type="button" class="dec-upgrade-btn btn btn-success">-</button>
-                      <button type="button" class="btn btn-success" disabled style="opacity: 1; min-width: 40px;">${String(
-                        qty
-                      ).padStart(2, "0")}</button>
-                      <button type="button" class="inc-upgrade-btn btn btn-success">+</button>
-                    </div>
-                  `
+                    (() => {
+                      let options = '';
+                      for (let i = 0; i <= 20; i++) {
+                        options += `<option value="${i}" ${i === qty ? 'selected' : ''}>${String(i).padStart(2,'0')}</option>`;
+                      }
+                      if (qty === 0) {
+                        return `
+                          <button type="button" class="add-upgrade-btn btn btn-success add-upgrade-btn">
+                            Add <i class="bi bi-chevron-down text-xs" style="margin-left: 8px;"></i>
+                          </button>
+                          <span class="upgrade-price text-sm">${upgrade.price}</span>
+                        `;
+                      }
+                      return `
+                        <select class="upgrade-qty-select form-control">${options}</select>
+                        <span class="upgrade-price text-sm">${upgrade.price}</span>
+                      `;
+                    })()
                   }
-                  <span class="upgrade-price">${upgrade.price}</span>
+                  </div>
                 </div>
               </div>
               ${
@@ -431,7 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       alt="${upgrade.name}"
                     />
                   </div>
-                  <a href="#" class="toggle-upgrade-details view-more-link">View more details</a>
+                  <a href="#" class="toggle-upgrade-details view-more-link ">View more details</a>
                 </div>
               `
                   : `
@@ -966,19 +966,25 @@ document.addEventListener("DOMContentLoaded", () => {
       renderUpgradesList(); // Re-render this section
       updateBookingSummary();
       refreshPaySection(); // Update total
-    } else if (target.closest(".inc-upgrade-btn")) {
-      selectedUpgradeQty[index] = Math.min(99, qty + 1);
-      renderUpgradesList(); // Re-render this section
-      updateBookingSummary();
-      refreshPaySection(); // Update total
-    } else if (target.closest(".dec-upgrade-btn")) {
-      selectedUpgradeQty[index] = Math.max(0, qty - 1);
-      renderUpgradesList(); // Re-render this section
-      updateBookingSummary();
-      refreshPaySection(); // Update total
     }
   });
 
+  // Handle quantity dropdown changes
+  dom.upgrades.container.addEventListener("change", (e) => {
+    const sel = e.target;
+    if (!sel.classList.contains("upgrade-qty-select")) return;
+    const wrap = sel.closest("[data-upgrade-index]");
+    if (!wrap) return;
+    const index = parseInt(wrap.dataset.upgradeIndex, 10);
+    const newQty = Math.max(0, Math.min(99, parseInt(sel.value, 10) || 0));
+    selectedUpgradeQty[index] = newQty;
+    // If 0 selected, revert to Add button state
+    if (newQty === 0) {
+      renderUpgradesList();
+    }
+    updateBookingSummary();
+    refreshPaySection();
+  });
   // Form Inputs
   Object.keys(dom.form).forEach((key) => {
     if (dom.form[key]) {
